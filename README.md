@@ -1,61 +1,81 @@
-# D&D Calendar App
+# D&D Calendar
 
-A lightweight campaign management tool for Dungeon Masters to track in-game time, events, and milestones across one or more Dungeons & Dragons campaigns.
+A modular web application for organizing Dungeons & Dragons campaigns. This app provides a custom calendar, session planning tools, RSVP tracking, player availability management, and interactive character and dice microservices — all built using modern web technologies and lightweight Python services.
 
 ---
 
-## Overview
+## Project Overview
 
-The D&D Calendar App helps Dungeon Masters organize the flow of time in their games. It supports campaign-specific calendars, custom event tracking, and streamlined time advancement, making it easier to maintain narrative consistency without juggling spreadsheets or notebooks.
+The D&D Calendar App helps Dungeon Masters and players coordinate campaigns, manage session logistics, and stay organized. The platform supports:
 
-Whether you're running epic world-spanning arcs or focused one-shots, this tool brings order to your campaign’s timeline.
+- A full-featured fantasy calendar with custom session scheduling
+- Player RSVPs and availability management
+- DM-only controls for creating or editing sessions
+- A Flask-based character sheet API for storing player stats
+- A ZeroMQ-based microservice for secure, server-side dice rolling
+
+Designed using React for the frontend and lightweight Python microservices on the backend, the app enables real-time decision-making and persistent session data — all while preserving a D&D-themed interface and experience.
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- **React** with Hooks (`useState`, `useEffect`)
+- **React Router DOM** – SPA navigation
+- **React Bootstrap** – Layout and UI components
+- **FullCalendar** – Session and timeline display
+- **localStorage** – Persistent storage for events, availability, RSVPs
+- **Custom styling** – via `App.css` and `d20.png`
+
+### Backend Microservices
+
+- **Microservice 1: Character Sheet API**
+  - Built with **Flask**
+  - REST API to manage player character data
+  - CORS enabled for frontend integration
+  - Role-based logic for DMs and Players
+  - Runs on `http://localhost:5007`
+
+- **Microservice 2: Dice Roller**
+  - Built with **Python and ZeroMQ**
+  - Listens on `tcp://127.0.0.1:5555`
+  - Responds to JSON requests with secure, server-side dice rolls
+  - Supports d4, d6, d8, d10, d12, d20
 
 ---
 
 ## Features
 
-- Custom fantasy calendar systems (months, weekdays, year settings)
-- Track campaign time across multiple active or archived games
-- Advance the calendar by days, weeks, or months
-- Create recurring or one-time events, notes, or in-game holidays
-- Add reminders and session summaries tied to specific dates
-- Optional notes section per day for worldbuilding or lore
-- Lightweight and portable architecture
+### Calendar + Session Scheduling
 
----
+- View all upcoming and past sessions by month
+- DMs can add sessions with a date, time, and description
+- Players see read-only sessions and can RSVP
+- Admin editing only enabled for `dm_cullen`
 
-## Getting Started
+### Character Sheet Microservice (Flask)
 
-### Prerequisites
+- Player (`player_jillian`) can create and update a character
+- DM (`dm_cullen`) can delete player characters
+- Fields include:
+  - name, race, class, level, attributes (STR, DEX, CON, INT, WIS, CHA), HP, inventory
 
-Depending on your implementation:
+### Dice Roller Microservice (ZeroMQ)
 
-- **Web-based version:** Node.js and npm
-- **Python-based version:** Python 3.x and pip
+- Supports rolling `d4`, `d6`, `d8`, `d10`, `d12`, and `d20`
+- Frontend sends `{"dice": "d20"}` to socket, receives roll result
+- Ensures rolls are randomized and secure from client manipulation
 
-### Clone the Repository
+### Player Availability
 
-```bash
-git clone https://github.com/yourusername/dnd-calendar-app.git
-cd dnd-calendar-app
-```
+- Players can define weekly availability (start/end times for each weekday)
+- Used by DM to schedule future sessions
+- Stored locally per user
 
-## Technologies Used
+### RSVP System
 
-- Python or JavaScript
-- Flask or Express
-- HTML, CSS, JavaScript frontend
-- Optional: SQLite or localStorage
-
----
-
-## Install Dependencies and Run
-
-
-
-```bash
-pip install -r requirements.txt
-python app.py
-```
-
-
+- Players can RSVP “Yes”, “No”, or “Maybe” to each session
+- Can include comments in RSVP
+- DMs can view all RSVP statuses
