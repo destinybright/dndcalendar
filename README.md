@@ -51,11 +51,11 @@ cd dnd-calendar-app
 
 ## Install Dependencies and Run
 
-<details>
+
 
 ```bash
 pip install -r requirements.txt
 python app.py
 ```
-</details> 
+
 
