@@ -2,6 +2,7 @@
 
 A modular web application for organizing Dungeons & Dragons campaigns. This app provides a custom calendar, session planning tools, RSVP tracking, player availability management, and interactive character and dice microservices — all built using modern web technologies and lightweight Python services.
 
+![Homepage Screenshot](src/images/homepage.png)
 ---
 
 ## Project Overview
