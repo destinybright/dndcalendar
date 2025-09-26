@@ -57,8 +57,9 @@ cd dnd-calendar-app
 ```bash
 pip install -r requirements.txt
 python app.py
+```
 </details> <details> <summary><strong>For Web (JavaScript)</strong></summary>
-bash
+```bash
 Copy code
 npm install
 npm start
